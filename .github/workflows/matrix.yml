@@ -1,0 +1,42 @@
+name: Call Reusable Template Per Matrix Entry
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  set-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+    steps:
+      - id: set
+        run: |
+          MATRIX_JSON=$(cat <<EOF
+          [
+            {
+              "name": "CentralCommunicationCenter",
+              "solution": "Applications/Solutions/CenterComm.sln",
+              "project": "Applications/Projects/CenterComm.csproj"
+            },
+            {
+              "name": "Accounting",
+              "solution": "Applications/Solutions/Accounting.sln",
+              "project": "Applications/Projects/Accounting.csproj"
+            }
+          ]
+          EOF
+          )
+          echo "matrix=$(echo "$MATRIX_JSON" | jq -c .)" >> "$GITHUB_OUTPUT"
+
+# Ese matrix with reusable workflows:
+  call-template:
+    needs: set-matrix
+    strategy:
+      matrix:
+        include: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
+    uses: ./.github/workflows/matrix_template.yml
+    with:
+      name: ${{ matrix.name }}
+      solution: ${{ matrix.solution }}
+      project: ${{ matrix.project }}
