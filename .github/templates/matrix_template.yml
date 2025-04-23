@@ -1,0 +1,24 @@
+name: Matrix Template
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+      solution:
+        required: true
+        type: string
+      project:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate build
+        run: |
+          echo "Building: ${{ inputs.name }}"
+          echo "Solution: ${{ inputs.solution }}"
+          echo "Project: ${{ inputs.project }}"
