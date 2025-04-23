@@ -15,7 +15,7 @@ jobs:
           MATRIX_JSON=$(cat <<EOF
           [
             {
-              "name": "CentralCommunicationCenter",
+              "name": "CenterComm",
               "solution": "Applications/Solutions/CenterComm.sln",
               "project": "Applications/Projects/CenterComm.csproj"
             },
