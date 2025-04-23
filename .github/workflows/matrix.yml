@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         include: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
-    uses: ./.github/workflows/matrix_template.yml
+    uses: ./.github/templates/matrix_template.yml
     with:
       name: ${{ matrix.name }}
       solution: ${{ matrix.solution }}
