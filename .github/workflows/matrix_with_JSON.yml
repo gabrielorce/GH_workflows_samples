@@ -3,11 +3,9 @@ name: Call Reusable Template Per Matrix Entry with JSON
 on:
   workflow_dispatch:
 
-
-#      If you must define the matrix in one job and then run steps in a separate job
-#      GitHub Actions does not allow sharing matrix values across jobs natively.
+#      GitHub Actions DOES NOT ALLOW SHARING MATRIX VALUES ACROSS JOBS NATIVELY.
 #      If you must define the matrix in one job and then run steps in a separate job, you’ll need to
-#      Output the matrix as JSON from the first job.
+#      output the matrix as JSON from the first job.
 #      You can define a matrix using a JSON string, then convert it to an object using fromJSON(...)
 #      We define the matrix JSON inside a separate set-matrix job.
 #      We parse it with jq -c . to ensure it's a valid, compact JSON array.
